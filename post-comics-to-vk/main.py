@@ -30,6 +30,7 @@ def download_comics(url, filename):
     file_with_path = 'temp_pics/{}'.format(filename)
     with open(file_with_path, 'wb') as file:
         file.write(response.content)
+    #raise ValueError
 
 def upload_comics(url, comment, filename):
     XKCD_CLIENT_ID = os.getenv('XKCD_CLIENT_ID')
@@ -84,11 +85,13 @@ def upload_comics(url, comment, filename):
 
 def main():
     load_dotenv()
-    url, comment, filename = get_random_comics_params()
-    download_comics(url, filename)
-    upload_comics(url, comment, filename)
-    photo_with_path = 'temp_pics/{}'.format(filename)
-    os.remove(photo_with_path)
+    try:
+        url, comment, filename = get_random_comics_params()
+        download_comics(url, filename)
+        upload_comics(url, comment, filename)
+    finally:
+        photo_with_path = 'temp_pics/{}'.format(filename)
+        os.remove(photo_with_path)
 
 if __name__ == '__main__':
     main()
