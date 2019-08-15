@@ -33,7 +33,6 @@ def download_comics(url, filename):
     file_with_path = 'temp_pics/{}'.format(filename)
     with open(file_with_path, 'wb') as file:
         file.write(response.content)
-    raise ValueError
 
 def upload_comics(url, comment, filename):
     XKCD_CLIENT_ID = os.getenv('XKCD_CLIENT_ID')
@@ -69,7 +68,7 @@ def upload_comics(url, comment, filename):
     response_album_url = response_data['response'][0]
     media_id = response_album_url['id']
     owner_id = response_album_url['owner_id']
-    post_by_group = 1               # post in vk will be created with group account
+    post_by_group = 1               # post on vk.com will be created with group account
     type_of_media = 'photo'
     attachments = '{}{}_{}'.format(type_of_media, owner_id, media_id)
     params = {'owner_id': XKCD_GROUP_ID, 
